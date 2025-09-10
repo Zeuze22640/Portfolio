@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Alan Heuzé — Portfolio</html> | GitHub Pages</title>
+  <title>Alan Heuzé — Portfolio | GitHub Pages</title>
   <meta name="description" content="Portfolio de Alan Heuzé — communication, design graphique, photo, vidéo & drone." />
   <meta property="og:title" content="Alan Heuzé — Portfolio" />
   <meta property="og:description" content="Communication, design graphique, photo, vidéo & drone." />
@@ -26,7 +26,7 @@
     html{background:#0b0c10;scroll-snap-type:y proximity;scroll-padding-top:90px}
     body{min-height:100%;position:relative;overflow-x:hidden;background:linear-gradient(180deg,#0b0c10,#0a0b0d);background-color:#0b0c10;background-attachment:fixed}
 
-    /* Animated gradient mesh background (uses theme colors) */
+    /* Animated gradient mesh background */
     .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
     .blob{position:absolute;filter:blur(90px);opacity:.42;mix-blend-mode:screen;transform:translate(-50%, -50%)}
     .b1{top:10%;left:10%;width:700px;height:700px;background:radial-gradient(closest-side at center, var(--brand) 0%, transparent 70%);} 
@@ -47,7 +47,7 @@
     header{position:sticky;top:0;background:rgba(10,11,13,.5);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--border);z-index:10;transition:box-shadow .25s ease, background .25s ease}
     header::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(255,255,255,.06), transparent 60%);pointer-events:none}
     header.scrolled{background:rgba(10,11,13,.7);box-shadow:0 12px 38px rgba(0,0,0,.35)}
-    nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    nav{position:relative;display:flex;align-items:center;justify-content:space-between;padding:14px 0}
     .logo{display:flex;gap:10px;align-items:center;font-weight:700}
     .logo-dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2))}
     .navlinks{display:flex;gap:18px}
@@ -70,7 +70,7 @@
     /* Progress bar */
     #progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--brand),var(--brand-2));z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.25)}
 
-    /* Buttons (magnetic-ready) */
+    /* Buttons */
     .btn, .social{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px;transform:translate3d(var(--tx,0), var(--ty,0), 0)}
     .btn{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#101114;padding:12px 18px;border-radius:999px;font-weight:700;border:0;box-shadow:var(--shadow);transition:transform .2s ease, box-shadow .2s ease, filter .2s ease}
     .btn:hover{transform:translate3d(var(--tx,0), var(--ty,0), 0) translateY(-1px);box-shadow:0 12px 34px rgba(124,92,255,.35);filter:brightness(1.05)}
@@ -91,10 +91,11 @@
     .section .subtitle{color:#c6cad3;text-align:center;max-width:70ch;margin:0 auto 28px}
     .section::after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:min(92%,1100px);height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent)}
 
-    /* À propos — portrait en fond */
+    /* À propos — portrait en fond (agrandi + carte plus transparente) */
     #a-propos{position:relative;overflow:hidden}
     #a-propos .portrait-bg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:clamp(420px,56vw,900px);opacity:.58;filter:none;mix-blend-mode:normal;pointer-events:none;z-index:0}
     #a-propos .card, #a-propos .list, #a-propos h2, #a-propos .subtitle{position:relative;z-index:1}
+    #a-propos .card{background:rgba(19,21,26,.40)}
 
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
     .col-6{grid-column:span 6}
@@ -114,8 +115,6 @@
     .card:hover::before{opacity:1}
     .card::after{content:"";position:absolute;inset:-40% -40%;pointer-events:none;background:radial-gradient(200px 200px at var(--gx,50%) var(--gy,50%), rgba(255,255,255,.12), transparent 60%);opacity:.0;transition:opacity .2s ease}
     .card:hover::after{opacity:.9}
-    /* Transparence légère pour voir le portrait en fond dans À propos */
-    #a-propos .card{background:rgba(19,21,26,.40)}
     .hidden{opacity:0;transform:scale(.98);pointer-events:none}
 
     .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
@@ -141,20 +140,41 @@
     .dotnav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:5}
     .dotnav a{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid var(--border);box-shadow:0 6px 16px rgba(0,0,0,.35);transition:transform .2s, background .2s, box-shadow .2s}
     .dotnav a.active,.dotnav a:hover{background:linear-gradient(135deg,var(--brand),var(--brand-2));transform:scale(1.2);box-shadow:0 0 0 2px rgba(124,92,255,.25),0 10px 24px rgba(0,212,255,.25)}
-    @media (max-width:900px){.dotnav{right:8px;gap:8px}}
 
-    /* Séparateurs de section (vagues) */
-    .divider{height:64px;margin:-16px 0 0;color:#fff;opacity:.07}
-    .divider svg{display:block;width:100%;height:100%}
-    .divider path{fill:currentColor}
+    /* --- Mobile menu (burger) --- */
+    .burger{display:none;position:absolute;right:10px;top:50%;transform:translateY(-50%);width:42px;height:38px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.03);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;gap:5px;z-index:15}
+    .burger span{display:block;width:18px;height:2px;background:#e6e8ef;border-radius:2px;box-shadow:0 1px 0 rgba(0,0,0,.15)}
+    .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(4px) rotate(45deg)}
+    .burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+    .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-4px) rotate(-45deg)}
 
-    /* Slider témoignages supprimé (GitHub Pages) */
+    .mobile-menu{position:fixed;top:var(--header-h,68px);left:0;right:0;bottom:0;background:rgba(10,11,13,.92);backdrop-filter:blur(12px) saturate(130%);-webkit-backdrop-filter:blur(12px) saturate(130%);z-index:14;display:flex;flex-direction:column;gap:4px;padding:16px 18px 28px;transform:translateY(-4%);opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease}
+    .mobile-menu.open{transform:translateY(0);opacity:1;pointer-events:auto}
+    .mobile-menu a{display:block;padding:14px 6px;border-bottom:1px solid var(--border);font-size:1.1rem}
+    .mobile-menu a:last-child{border-bottom:0}
+
+    body.noscroll{overflow:hidden}
+    [hidden]{display:none!important}
+
+    @media (max-width:900px){
+      .navlinks{display:none}
+      .themes{display:none}
+      .burger{display:inline-flex}
+      .dotnav{display:none}
+    }
+
+    /* Projets — cartes image */
+    .project-media{aspect-ratio:16/9;overflow:hidden;border-radius:12px}
+    .project-media img{width:100%;height:100%;object-fit:cover;transform:scale(1);transition:transform .4s ease}
+    .project-card:hover .project-media img{transform:scale(1.05)}
+    .project-caption{display:flex;align-items:center;justify-content:space-between;margin-top:10px;color:#e5e8ee}
+    .project-title{font-weight:700}
 
     /* Form & footer */
     form{display:grid;gap:12px}
     .form-grid{grid-template-columns:1fr}
     @media (min-width:900px){.form-grid-2{grid-template-columns:repeat(2,1fr)}.span-2{grid-column:1 / -1}}
-    input, textarea{width:100%;background:#0d0f13;border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:12px}
+    input, textarea{width:100%;background:#0d0f13;border:1px solid var(--border);color:#fff;padding:12px 14px;border-radius:12px}
     footer{padding:32px 0;color:#aab0ba;border-top:1px solid var(--border);margin-top:36px;text-align:center}
 
     /* Focus ring accessible */
@@ -207,11 +227,22 @@
             <span class="theme-dot dot-sunset" title="Sunset Pop" data-theme="sunset" aria-label="Thème Sunset" role="button" tabindex="0"></span>
           </div>
         </div>
+        <!-- Burger button (mobile) -->
+        <button id="menuToggle" class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
       </nav>
     </div>
   </header>
 
-  <!-- Dot navigation vertical -->
+  <!-- Mobile menu overlay -->
+  <div id="mobileMenu" class="mobile-menu" hidden>
+    <a href="#accueil">Accueil</a>
+    <a href="#a-propos">À propos</a>
+    <a href="#projets">Projets</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- Dot navigation vertical (masqué sur mobile) -->
   <nav class="dotnav" aria-label="Navigation par sections">
     <a href="#accueil" aria-label="Aller à Accueil" class="active"></a>
     <a href="#a-propos" aria-label="Aller à À propos"></a>
@@ -244,9 +275,9 @@
       <p class="subtitle">Étudiant en communication & marketing sportif (Médiaschool) — pratique de design graphique orientée sport & territoires, avec une approche terrain : simple, efficace, utile.</p>
       <div class="card">
         <ul class="list">
-          <li>Graphisme </li>
+          <li>Photoshop & InDesign — niveau avancé</li>
           <li>Canon EOS R7 + DJI Mini 4 Pro</li>
-          <li>Communication Événmentielle (Football, Tour de France, Ocean Fifty Series)</li>
+          <li>Organisation événements (Ocean Fifty Series)</li>
         </ul>
       </div>
     </section>
@@ -267,21 +298,81 @@
         <button class="pill" data-filter="evenement">Événement</button>
         <button class="pill" data-filter="sport">Sport</button>
       </div>
+
       <div class="grid">
-        <div class="tilt-wrap col-6" data-tags="branding,sport">
-          <article class="card tilt">
-            <h3>Rebranding — Régional 1 Bretagne</h3>
-            <p>Naming, identité modulaire, gabarits social, dossier sponsoring.</p>
-            <div class="tags"><span class="tag">Branding</span><span class="tag">Sport</span></div>
+        <!-- SPORT -->
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/ait-nouri.png" alt="Projet sport — Ait‑Nouri" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">Ait‑Nouri</span><span class="tag">Sport</span></figcaption>
           </article>
-        </div>
-        <div class="tilt-wrap col-6" data-tags="evenement,video">
-          <article class="card tilt">
-            <h3>Ocean Fifty Series — Act à Saint-Malo</h3>
-            <p>Coordination com’, contenus jour J, affiches et recap vidéo.</p>
-            <div class="tags"><span class="tag">Événement</span><span class="tag">Vidéo</span></div>
+        </figure>
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/bvb-psg.png" alt="Projet sport — BVB vs PSG" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">BVB – PSG</span><span class="tag">Sport</span></figcaption>
           </article>
-        </div>
+        </figure>
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/charles-leclerc.png" alt="Projet sport — Charles Leclerc" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">Charles Leclerc</span><span class="tag">Sport</span></figcaption>
+          </article>
+        </figure>
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/georginio-rutter.jpg" alt="Projet sport — Georginio Rutter" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">Georginio Rutter</span><span class="tag">Sport</span></figcaption>
+          </article>
+        </figure>
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/jannik-sinner.png" alt="Projet sport — Jannik Sinner" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">Jannik Sinner</span><span class="tag">Sport</span></figcaption>
+          </article>
+        </figure>
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/lebron-james.png" alt="Projet sport — LeBron James" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">LeBron James</span><span class="tag">Sport</span></figcaption>
+          </article>
+        </figure>
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/lucas-rosier.png" alt="Projet sport — Lucas Rosier" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">Lucas Rosier</span><span class="tag">Sport</span></figcaption>
+          </article>
+        </figure>
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/martin-terrier.jpg" alt="Projet sport — Martin Terrier" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">Martin Terrier</span><span class="tag">Sport</span></figcaption>
+          </article>
+        </figure>
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/scoot-henderson.jpg" alt="Projet sport — Scoot Henderson" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">Scoot Henderson</span><span class="tag">Sport</span></figcaption>
+          </article>
+        </figure>
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/seko-fofana.png" alt="Projet sport — Seko Fofana" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">Seko Fofana</span><span class="tag">Sport</span></figcaption>
+          </article>
+        </figure>
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/srfc-fcl.jpg" alt="Projet sport — SRFC – FCL" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">SRFC – FCL</span><span class="tag">Sport</span></figcaption>
+          </article>
+        </figure>
+        <figure class="tilt-wrap col-4" data-tags="sport">
+          <article class="card tilt project-card">
+            <div class="project-media"><img src="assets/creations/story-src.jpg" alt="Projet sport — Story SRFC" loading="lazy" decoding="async"></div>
+            <figcaption class="project-caption"><span class="project-title">Story SRFC</span><span class="tag">Sport</span></figcaption>
+          </article>
+        </figure>
       </div>
     </section>
 
@@ -311,7 +402,7 @@
       <h2>Contact</h2>
       <p class="subtitle">Un projet en tête ? Donnez-moi 3 infos : objectifs, délais, budget estimé.</p>
 
-      <!-- Formulaire compatible GitHub Pages via Formspree (remplace TON_ID) -->
+      <!-- Formulaire compatible GitHub Pages via Formspree (ID intégré) -->
       <form id="contactForm" name="contact" method="POST" action="https://formspree.io/f/mjkelglz" class="form-grid form-grid-2" novalidate>
         <input type="hidden" name="_subject" value="Nouveau message – Portfolio">
         <!-- Anti-spam léger (honeypot + time gate) -->
@@ -337,7 +428,7 @@
       <p>📞 <a href="tel:+33659757164">+33 6 59 75 71 64</a></p>
 
       <div class="socials" aria-label="Réseaux sociaux">
-        <a class="social" href="https://www.linkedin.com/in/alan-heuze-401ab9218" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <a class="social" href="https://www.linkedin.com/in/ton-profil" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V24h-4V8.5zm7.5 0h3.84v2.11h.05c.53-1 1.84-2.11 3.79-2.11C20.21 8.5 22 11 22 15.06V24h-4v-8.02c0-1.91-.03-4.37-2.66-4.37-2.67 0-3.08 2.08-3.08 4.23V24H8V8.5z"/></svg>
           LinkedIn
         </a>
@@ -359,19 +450,22 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    const tsFieldInit = document.getElementById('ts'); if(tsFieldInit) tsFieldInit.value = Date.now().toString();
 
-    // Header shadow on scroll + progress bar + back-to-top
+    // Header shadow on scroll + progress bar + back-to-top + header height var
     const header = document.querySelector('header');
     const progress = document.getElementById('progress');
     const toTop = document.getElementById('toTop');
+    function updateHeaderH(){ document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px'); }
     window.addEventListener('scroll', () => {
       header.classList.toggle('scrolled', window.scrollY > 6);
       const h = document.documentElement;
       const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
       progress.style.width = (scrolled * 100) + '%';
       if (window.scrollY > 500) toTop.classList.add('show'); else toTop.classList.remove('show');
+      updateHeaderH();
     });
+    updateHeaderH();
+
     toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
     // Active link on scroll (nav + dotnav)
@@ -406,14 +500,22 @@
       link.addEventListener('click', (e)=>{
         const id = link.getAttribute('href').slice(1);
         const target = document.getElementById(id);
-        if(target){ e.preventDefault();
-        // Anti-spam léger: honeypot + délai minimal
-        const hp = document.getElementById('hp_website');
-        const ts = document.getElementById('ts');
-        const tooFast = ts && (Date.now() - parseInt(ts.value||'0',10) < 1800);
-        if((hp && hp.value) || tooFast){ window.location.href = 'success.html'; return; } navigateTo(id); try { history.replaceState(null, '', `#${id}`);} catch(_) {} }
+        if(target){ e.preventDefault(); navigateTo(id); try { history.replaceState(null, '', `#${id}`);} catch(_) {} }
       });
     });
+
+    // Mobile menu toggle
+    (function(){
+      const burger = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if(!burger || !mobileMenu) return;
+      const closeMenu = () => { burger.setAttribute('aria-expanded','false'); mobileMenu.classList.remove('open'); mobileMenu.hidden = true; document.body.classList.remove('noscroll'); };
+      const openMenu  = () => { burger.setAttribute('aria-expanded','true');  mobileMenu.hidden = false; mobileMenu.classList.add('open'); document.body.classList.add('noscroll'); };
+      window.addEventListener('resize', () => { updateHeaderH(); if (innerWidth >= 900) closeMenu(); });
+      burger.addEventListener('click', ()=> (burger.getAttribute('aria-expanded')==='true') ? closeMenu() : openMenu());
+      mobileMenu.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeMenu));
+      window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
+    })();
 
     // Scroll reveal
     const io = new IntersectionObserver((entries)=>{
@@ -511,16 +613,17 @@
 
     // Formspree handler (GitHub Pages)
     const form = document.getElementById('contactForm');
+    const tsField = document.getElementById('ts'); if(tsField) tsField.value = Date.now().toString();
     if(form){
       form.addEventListener('submit', async (e)=>{
         e.preventDefault();
-        const endpoint = form.getAttribute('action') || '';
-        if(!endpoint || endpoint.includes('TON_ID')){
-          alert("Le formulaire n'est pas encore configuré. Remplace 'TON_ID' par ton identifiant Formspree, ou écris-moi par email.");
-          return;
-        }
+        // Anti-spam léger
+        const hp = document.getElementById('hp_website');
+        const ts = document.getElementById('ts');
+        const tooFast = ts && (Date.now() - parseInt(ts.value||'0',10) < 1800);
+        if((hp && hp.value) || tooFast){ window.location.href = 'success.html'; return; }
         try{
-          const r = await fetch(endpoint, { method:'POST', headers:{'Accept':'application/json'}, body: new FormData(form) });
+          const r = await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body: new FormData(form) });
           if(r.ok){ window.location.href = 'success.html'; }
           else{ alert('Oups, réessayez plus tard.'); }
         }catch(err){ alert('Erreur réseau. Réessayez plus tard.'); }
